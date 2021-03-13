@@ -86,11 +86,7 @@ impl VBulletinApi
       Some(v) => format!("corona, version {}", v),
       None => String::from("1.0")
     };
-    let name = match option_env!("CARGO_PKG_NAME")
-    {
-      Some(v) => v,
-      None => "vbulletin-api"
-    };
+    let name = option_env!("CARGO_PKG_NAME").unwrap_or("vbulletin-api");
     let unique_id = "555logs";
     let url = format!("{}/api.php?api_m=api_init&clientname={}&clientversion={}&platformname={}&platformversion={}&uniqueid={}",
                       base_url, name, version, name, version, unique_id);
@@ -224,7 +220,7 @@ impl VBulletinApi
     }
     else
     {
-      Err(format!("Login has failed."))
+      Err("Login has failed.".to_string())
     }
   }
 }

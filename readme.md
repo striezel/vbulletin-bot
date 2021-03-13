@@ -4,9 +4,21 @@ This repository contains an attempt for an moderation bot for use with the
 vBulletin forum API. It is still in an exploratory proof of concept stage and
 does not provide much useful features (yet).
 
+## Status
+
+![It works. Why?](https://forthebadge.com/images/badges/it-works-why.svg)
+
+* GitHub:
+[![GitHub CI Rust tests](https://github.com/striezel/vbulletin-bot/workflows/Rust%20application%20build/badge.svg)](https://github.com/striezel/vbulletin-bot/actions)
+[![GitHub CI Rust linting](https://github.com/striezel/vbulletin-bot/workflows/Clippy%20lints/badge.svg)](https://github.com/striezel/vbulletin-bot/actions)
+* GitLab:
+[![GitLab pipeline status](https://gitlab.com/striezel/vbulletin-bot/badges/master/pipeline.svg)](https://gitlab.com/striezel/vbulletin-bot/)
+
 ## Building the application from source
 
 ### Prerequisites
+
+[![minimum rustc 1.47.0](https://img.shields.io/badge/minimum%20rustc-1.47.0-c18170?logo=rust&style=for-the-badge)](https://www.whatrustisit.com/)
 
 To build the application you need the Rust compiler. The Minimum Supported Rust
 Version (MSRV) is Rust 1.47. Furthermore, you need Cargo (Rust's package

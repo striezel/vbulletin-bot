@@ -1,0 +1,29 @@
+name: Clippy lints
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  clippy:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install packages
+      run: sudo apt-get install -y curl gcc g++ wget libssl-dev pkg-config
+    - name: Rustup
+      run: |
+        wget -O /tmp/ru.sh https://sh.rustup.rs
+        chmod u+x /tmp/ru.sh
+        /tmp/ru.sh -y --profile minimal --component clippy
+        source $HOME/.cargo/env
+        export PATH="$HOME/.cargo/bin:$PATH"
+    - name: List installed Rust and Cargo version
+      run: |
+        rustc --version
+        cargo --version
+    - name: Lint with clippy
+      run: |
+        cargo clippy -- -D warnings -A clippy::suspicious_else_formatting

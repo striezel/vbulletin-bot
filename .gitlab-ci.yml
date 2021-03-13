@@ -1,0 +1,48 @@
+alpine:
+  image: alpine:latest
+  stage: build
+  before_script:
+    - apk update
+    - apk add bash cargo rust openssl-dev
+  script:
+    - rustc --version
+    - cargo --version
+    - cargo build
+
+centos:
+  image: centos:8
+  stage: build
+  before_script:
+    - yum install -y bash cargo rust sqlite-devel openssl-devel
+  script:
+    - rustc --version
+    - cargo --version
+    - cargo build
+
+#debian:
+#  image: debian:10-slim
+#  stage: build
+#  before_script:
+#    - apt-get update
+#    - export DEBIAN_FRONTEND=noninteractive
+#    - apt-get install -y bash cargo rustc libssl-dev pkg-config
+#  script:
+#    - rustc --version
+#    - cargo --version
+#    - cargo build
+
+clippy:
+  image: alpine:latest
+  stage: build
+  before_script:
+    - apk update
+    - apk add bash curl wget sqlite-dev gcc g++ openssl-dev
+    - wget -O /tmp/ru.sh https://sh.rustup.rs
+    - chmod u+x /tmp/ru.sh
+    - /tmp/ru.sh -y --profile minimal --component clippy
+    - source $HOME/.cargo/env
+    - export PATH="$HOME/.cargo/bin:$PATH"
+  script:
+    - rustc --version
+    - cargo --version
+    - cargo clippy -- -D warnings -A clippy::suspicious_else_formatting
